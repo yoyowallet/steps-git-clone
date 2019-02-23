@@ -221,8 +221,15 @@ func autoMerge(gitCmd git.Git, mergeBranch, branchDest, buildURL, apiToken strin
 	return nil
 }
 
-func manualMerge(gitCmd git.Git, repoURL, prRepoURL, branch, commit, branchDest string) error {
-	if err := runWithRetry(func() *command.Model { return gitCmd.Fetch("origin", branchDest) }); err != nil {
+func manualMerge(gitCmd git.Git, repoURL, prRepoURL, branch, commit, branchDest string, depth int) error {
+	if err := runWithRetry(func() *command.Model { 
+		var opts []string
+		if depth != 0 {
+			opts = append(opts, "--depth="+strconv.Itoa(depth))
+		}
+		opts = append(opts, "origin", branchDest)
+		return gitCmd.Fetch(opts...)
+	}); err != nil {
 		return fmt.Errorf("fetch failed, error: %v", err)
 	}
 	if err := pull(gitCmd, branchDest); err != nil {
