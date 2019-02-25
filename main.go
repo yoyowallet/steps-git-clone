@@ -18,12 +18,13 @@ type config struct {
 	Tag           string `env:"tag"`
 	Branch        string `env:"branch"`
 
-	BranchDest      string `env:"branch_dest"`
-	PRID            int    `env:"pull_request_id"`
-	PRRepositoryURL string `env:"pull_request_repository_url"`
-	PRMergeBranch   string `env:"pull_request_merge_branch"`
-	ResetRepository bool   `env:"reset_repository,opt[Yes,No]"`
-	CloneDepth      int    `env:"clone_depth"`
+	BranchDest      		string `env:"branch_dest"`
+	PRID            		int    `env:"pull_request_id"`
+	PRRepositoryURL 		string `env:"pull_request_repository_url"`
+	PRMergeBranch   		string `env:"pull_request_merge_branch"`
+	ResetRepository 		bool   `env:"reset_repository,opt[Yes,No]"`
+	CloneDepth      		int    `env:"clone_depth"`
+	CloneDepthManualMerge 	int    `env:"clone_depth_manual_merge"`
 
 	BuildURL         string `env:"build_url"`
 	BuildAPIToken    string `env:"build_api_token"`
@@ -92,7 +93,7 @@ func mainE() error {
 			}
 		} else {
 			if err := manualMerge(gitCmd, cfg.RepositoryURL, cfg.PRRepositoryURL, cfg.Branch,
-				cfg.Commit, cfg.BranchDest, cfg.CloneDepth); err != nil {
+				cfg.Commit, cfg.BranchDest, cfg.CloneDepthManualMerge); err != nil {
 				return fmt.Errorf("manual merge, error: %v", err)
 			}
 		}

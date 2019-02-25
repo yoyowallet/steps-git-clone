@@ -78,10 +78,19 @@ inputs:
   - clone_depth:
     opts:
       category: Clone Config
-      title: "Limit fetching to the specified number of commits"
+      title: "Clone depth"
       description: |-
         Limit fetching to the specified number of commits.
         The value should be a decimal number, for example `10`.
+  - clone_depth_manual_merge:
+    opts:
+      category: Clone Config
+      title: "Clone depth (Manual Merge)"
+      description: |-
+        Limit fetching to the specified number of commits.
+        The value should be a decimal number, for example `10`.
+        The value is used to limit the clone depth on the target branch.
+        If the specified depth doesn't allow a merge-base the clone will clone the full history.
   - reset_repository: "No"
     opts:
       category: Debug
