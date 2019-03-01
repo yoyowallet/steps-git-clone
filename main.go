@@ -98,7 +98,7 @@ func mainE() error {
 			}
 		}
 	} else if checkoutArg != "" {
-		if err := checkout(gitCmd, checkoutArg, cfg.Branch, cfg.CloneDepth, cfg.Tag != ""); err != nil {
+		if err := checkout(gitCmd, checkoutArg, cfg.Commit, cfg.Branch, cfg.CloneDepth, cfg.Tag != ""); err != nil {
 			return fmt.Errorf("checkout (%s): %v", checkoutArg, err)
 		}
 		// Update branch: 'git fetch' followed by a 'git merge' is the same as 'git pull'.
